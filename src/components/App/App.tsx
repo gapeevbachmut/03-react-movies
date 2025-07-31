@@ -5,7 +5,7 @@ import { Toaster } from 'react-hot-toast';
 
 export default function App() {
   const handleSearchBar = (data: string) => {
-    // console.log('input - ', data);
+    console.log('input - ', data);
     //     Якщо в результаті запиту масив фільмів порожній, виводьте повідомлення:
     // No movies found for your request.
     // Ця перевірка виконується в App при обробці HTTP-запиту.
