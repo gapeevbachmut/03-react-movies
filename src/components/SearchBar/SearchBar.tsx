@@ -13,8 +13,7 @@ export default function SearchBar({ onSubmit }: SearchBarProps) {
       toast.error('Please enter your search query..');
       return;
     }
-    console.log(query);
-
+    // console.log(query);
     onSubmit(query);
   };
 
