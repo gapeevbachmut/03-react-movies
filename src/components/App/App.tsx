@@ -22,9 +22,9 @@ export default function App() {
       }
       // setMovie(responce.data.results);
       setMovie(responce);
-    } catch (error) {
-      toast.error(`Error while requesting movies:   ${error.code}`);
-      console.error('Error while requesting movies:', error.code);
+    } catch {
+      toast.error(`Error while requesting movies.`);
+      console.error('Error while requesting movies.');
     } finally {
       console.log('ok');
     }
