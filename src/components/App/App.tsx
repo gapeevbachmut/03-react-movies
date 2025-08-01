@@ -2,39 +2,28 @@ import { useState } from 'react';
 import css from './App.module.css';
 import SearchBar from '../SearchBar/SearchBar';
 import { Toaster } from 'react-hot-toast';
-import axios from 'axios';
-import { type Movie, type MovieResponce } from '../../types/movie';
+import { type Movie } from '../../types/movie';
+import { fetchMovies } from '../../services/movieService';
 
 export default function App() {
   const [movie, setMovie] = useState<Movie[]>([]);
-  // console.log(setMovie);
-  // console.log(movie);
-  const handleSearchBar = async (data: string) => {
-    console.log('input - ', data);
 
-    const myKey = import.meta.env.VITE_TMDB_TOKEN;
-    const config = {
-      params: {
-        data, // те саме, що query: query
-        include_adult: false,
-        language: 'en-US',
-        page: 1,
-      },
-      headers: {
-        Authorization: `Bearer ${myKey}`,
-      },
-    };
+  const handleSearchBar = async (query: string) => {
+    console.log('input - ', query);
 
     try {
-      const responce = await axios.get<MovieResponce>(
-        `https://api.themoviedb.org/3/search/movie?query=${data}`,
-        config
-      );
-      console.log(responce.data);
+      setMovie([]);
+      const responce = await fetchMovies(query);
+      if (responce.length === 0) {
+        console.log('No movies found for your request.');
+      }
 
-      setMovie(responce.data.results);
+      // setMovie(responce.data.results);
+      setMovie(responce);
     } catch (error) {
       console.error('Помилка при запиті фільмів:', error);
+    } finally {
+      console.log('ok');
     }
 
     //     Якщо в результаті запиту масив фільмів порожній, виводьте повідомлення:
