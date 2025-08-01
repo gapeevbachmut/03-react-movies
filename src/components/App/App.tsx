@@ -26,7 +26,7 @@ export default function App() {
   };
 
   const handleSearchBar = async (query: string) => {
-    console.log('input - ', query);
+    // console.log('input - ', query);
 
     try {
       setIsLoading(true);
@@ -36,7 +36,7 @@ export default function App() {
       const responce = await fetchMovies(query);
       if (responce.length === 0) {
         toast.error('No movies found for your request.');
-        console.log('No movies found for your request.');
+        // console.log('No movies found for your request.');
       }
 
       setMovie(responce);
@@ -50,9 +50,17 @@ export default function App() {
 
   return (
     <>
-      <h1>Hello!</h1>
-      <img className={css.logo} src="/react.svg" alt="react" />
+      <a href="index.html">
+        <h1>
+          <img className={css.logo} src="/react.svg" alt="react" />
+          React
+          <img className={css.logo} src="/react.svg" alt="react" />- домашня
+          робота № 3
+        </h1>
+      </a>
+
       <SearchBar onSubmit={handleSearchBar} />
+
       {isLoading && <Loader />}
       {isError && <ErrorMessage />}
       {isModalOpen && <MovieModal movie={isModalOpen} onClose={closeModal} />}

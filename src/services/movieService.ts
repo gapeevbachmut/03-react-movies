@@ -6,12 +6,14 @@ const myKey = import.meta.env.VITE_TMDB_TOKEN;
 export const fetchMovies = async (query: string): Promise<Movie[]> => {
   const config = {
     params: {
+      method: 'GET',
       query,
       include_adult: false,
       language: 'en-US',
       page: 1,
     },
     headers: {
+      accept: 'application/json',
       Authorization: `Bearer ${myKey}`,
     },
   };
@@ -21,7 +23,7 @@ export const fetchMovies = async (query: string): Promise<Movie[]> => {
     config
     //?query=${query}
   );
-  console.log(responce.data.results); // масив за пошуком
+  // console.log(responce.data.results); // масив за пошуком
 
   return responce.data.results;
 };
