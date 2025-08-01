@@ -21,6 +21,7 @@ export default function App() {
         console.log('No movies found for your request.');
       }
       // setMovie(responce.data.results);
+
       setMovie(responce);
     } catch {
       toast.error(`Error while requesting movies.`);
@@ -36,16 +37,7 @@ export default function App() {
       <img className={css.logo} src="/react.svg" alt="react" />
       <SearchBar onSubmit={handleSearchBar} />
       {movie.length > 0 && (
-        <MovieGrid />
-        // <ul>
-        //   {movie.map(({ id, title }) => (
-        //     <li key={id}>
-        //       <a href="" target="_blank">
-        //         {title}
-        //       </a>
-        //     </li>
-        //   ))}
-        // </ul>
+        <MovieGrid movies={movie} onSelect={id => console.log(id)} />
       )}
       <Toaster />
     </>

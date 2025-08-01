@@ -21,5 +21,7 @@ export const fetchMovies = async (query: string): Promise<Movie[]> => {
     config
     //?query=${query}
   );
+  console.log(responce.data.results); // масив за пошуком
+
   return responce.data.results;
 };
