@@ -15,7 +15,11 @@ export default function MovieGrid({ onSelect, movies }: MovieGridProps) {
     <ul className={css.grid}>
       {/* Набір елементів списку з фільмами */}
       {movies.map(({ id, title, poster_path }) => (
-        <li key={id} onClick={() => onSelect(id)}>
+        <li
+          key={id}
+          // onClick={openModal}      //  how  ---  ????
+          onClick={() => onSelect(id)}
+        >
           <div className={css.card}>
             <img
               className={css.image}
