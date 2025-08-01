@@ -1,33 +1,39 @@
 import { useState } from 'react';
+import { Toaster } from 'react-hot-toast';
+import { type Movie } from '../../types/movie';
+import { fetchMovies } from '../../services/movieService';
 import css from './App.module.css';
 import SearchBar from '../SearchBar/SearchBar';
 import toast from 'react-hot-toast';
 import MovieGrid from '../MovieGrid/MovieGrid';
-import { Toaster } from 'react-hot-toast';
-import { type Movie } from '../../types/movie';
-import { fetchMovies } from '../../services/movieService';
+import Loader from '../Loader/Loader';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
 export default function App() {
   const [movie, setMovie] = useState<Movie[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   const handleSearchBar = async (query: string) => {
     console.log('input - ', query);
 
     try {
+      setIsLoading(true);
+      setIsError(false);
       setMovie([]);
+
       const responce = await fetchMovies(query);
       if (responce.length === 0) {
         toast.error('No movies found for your request.');
         console.log('No movies found for your request.');
       }
-      // setMovie(responce.data.results);
 
       setMovie(responce);
     } catch {
       toast.error(`Error while requesting movies.`);
-      console.error('Error while requesting movies.');
+      setIsError(true);
     } finally {
-      console.log('ok');
+      setIsLoading(false);
     }
   };
 
@@ -36,6 +42,8 @@ export default function App() {
       <h1>Hello!</h1>
       <img className={css.logo} src="/react.svg" alt="react" />
       <SearchBar onSubmit={handleSearchBar} />
+      {isLoading && <Loader />}
+      {isError && <ErrorMessage />}
       {movie.length > 0 && (
         <MovieGrid movies={movie} onSelect={id => console.log(id)} />
       )}
