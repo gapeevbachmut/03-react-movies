@@ -15,12 +15,8 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
-  // const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
-
   const [isModalOpen, setIsModalOpen] = useState<Movie | null>(null);
-  const openModal = (movie: Movie) => {
-    setIsModalOpen(movie);
-  };
+
   const closeModal = () => {
     setIsModalOpen(null);
   };
@@ -65,15 +61,7 @@ export default function App() {
       {isError && <ErrorMessage />}
       {isModalOpen && <MovieModal movie={isModalOpen} onClose={closeModal} />}
       {movie.length > 0 && (
-        <MovieGrid
-          movies={movie}
-          onSelect={movieId => {
-            const selected = movie.find(m => m.id === movieId);
-            if (selected) {
-              openModal(selected);
-            }
-          }}
-        />
+        <MovieGrid movies={movie} onSelect={movie => setIsModalOpen(movie)} />
       )}
       <Toaster />
     </>

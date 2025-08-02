@@ -1,12 +1,15 @@
 import axios from 'axios';
-import { type Movie, type MovieResponce } from '../types/movie';
+import { type Movie } from '../types/movie';
+
+export interface MovieResponce {
+  results: Movie[];
+}
 
 const myKey = import.meta.env.VITE_TMDB_TOKEN;
 
 export const fetchMovies = async (query: string): Promise<Movie[]> => {
   const config = {
     params: {
-      method: 'GET',
       query,
       include_adult: false,
       language: 'en-US',

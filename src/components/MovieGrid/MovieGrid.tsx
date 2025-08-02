@@ -6,7 +6,7 @@ import css from './MovieGrid.module.css';
 import { type Movie } from '../../types/movie';
 
 interface MovieGridProps {
-  onSelect: (movieId: number) => void;
+  onSelect: (movieId: Movie) => void;
   movies: Movie[];
 }
 
@@ -14,20 +14,20 @@ export default function MovieGrid({ onSelect, movies }: MovieGridProps) {
   return (
     <ul className={css.grid}>
       {/* Набір елементів списку з фільмами */}
-      {movies.map(({ id, title, poster_path }) => (
+      {movies.map(movies => (
         <li
-          key={id}
+          key={movies.id}
           // onClick={openModal}      //  how  ---  ????
-          onClick={() => onSelect(id)}
+          onClick={() => onSelect(movies)}
         >
           <div className={css.card}>
             <img
               className={css.image}
-              src={`https://image.tmdb.org/t/p/w500${poster_path}`}
-              alt={title}
+              src={`https://image.tmdb.org/t/p/w500${movies.poster_path}`}
+              alt={movies.title}
               loading="lazy"
             />
-            <h2 className={css.title}>{title}</h2>
+            <h2 className={css.title}>{movies.title}</h2>
           </div>
         </li>
       ))}
